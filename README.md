@@ -4,7 +4,6 @@ This team project mainly aims to update the Console part of a clone of [AirBnB](
 This repository contains the initial stage of a student project to build and eventually deploy our server a clone of the AirBnB website. This stage implements a backend interface, or console, to manage program data. Console commands allow the user to create, update, and destroy objects, as well as manage file storage. Using a system of JSON serialization/deserialization, storage is persistent between sessions.
 
 ## Table of Content
-* [Command Interpreter](#Command-Interpreter)
 * [Environment](#Environment)
 * [Environmental](#Environmental-Variables)
 * [Descriptions](#Descriptions)
