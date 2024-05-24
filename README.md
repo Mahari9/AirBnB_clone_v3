@@ -5,7 +5,7 @@ This repository contains the initial stage of a student project to build and eve
 
 ## Table of Content
 * [Environment](#Environment)
-* [Environmental](#Environmental-Variables)
+* [Environmental Variables](#Environmental-Variables)
 * [Descriptions](#Descriptions)
 * [General Use](#General-Use)
 * [Available Models](#Available-Models)
