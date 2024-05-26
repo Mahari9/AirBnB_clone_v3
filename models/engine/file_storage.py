@@ -86,4 +86,4 @@ class FileStorage:
             num = len(self.all(cls))
         elif cls is None:
             num = len(self.__objects)
-        return num        
+        return num
