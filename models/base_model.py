@@ -58,11 +58,7 @@ class BaseModel:
         models.storage.new(self)
         models.storage.save()
 
-<<<<<<< HEAD
     def to_dict(self, save_fs=None):
-=======
-    def to_dict(self, save_fs):
->>>>>>> 45edaff3f34a3ae8efdc39809ee2e1e20814a370
         """returns a dictionary containing all keys/values of the instance"""
         new_dict = self.__dict__.copy()
         if "created_at" in new_dict:
