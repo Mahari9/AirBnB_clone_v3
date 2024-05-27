@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" 
+"""
 Creates a new view link between Place objects and Amenity objects
 that handles all default RESTFul API actions:
 """
