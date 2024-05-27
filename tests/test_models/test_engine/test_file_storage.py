@@ -118,11 +118,13 @@ class TestFileStorage(unittest.TestCase):
     def test_get(self):
         """Test that the get method properly retrievs objects"""
         storage = FileStorage()
-        self.assertIs(storage.get("User", "mah"), None)
-        self.assertIs(storage.get("mah", "mah"), None)
-        new_user = User()
-        new_user.save()
-        self.assertIs(storage.get("User", new_user.id), new_user)
+        dic = {"name": "Vecindad"}
+        instance = State(**dic)
+        storage.new(instance)
+        storage.save()
+        storage = FileStorage()
+        get_instance = storage.get(State, instance.id)
+        self.assertEqual(get_instance, instance)
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_count(self):
