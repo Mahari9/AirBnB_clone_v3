@@ -14,7 +14,7 @@ from flask import abort, jsonify, make_response, request
                  strict_slashes=False)
 def get_places(city_id):
     """
-    Retrieves the list of all Place objects of a City
+    Retrieves the lists of all Place objects of a City
     """
     city = storage.get(City, city_id)
 
