@@ -10,19 +10,21 @@ from models.state import State
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 def get_states():
     """Retrieves the list of all State objects"""
-    states = []
-    for state in storage.all("State").values():
-        states.append(state.to_dict())
-    return jsonify(states)
+    all_states = storage.all(State).values()
+    list_states = []
+    for state in all_states:
+        list_states.append(state.to_dict())
+    return jsonify(list_states)
 
 
 @app_views.route('/states/<string:state_id>', methods=['GET'],
                  strict_slashes=False)
 def get_state(state_id):
-    """Retrieves a specific State"""
-    state = storage.get("State", state_id)
-    if state is None:
+    """ Retrieves a specific State """
+    state = storage.get(State, state_id)
+    if not state:
         abort(404)
+
     return jsonify(state.to_dict())
 
 
@@ -30,13 +32,15 @@ def get_state(state_id):
                  strict_slashes=False)
 def delete_state(state_id):
     """Deletes a State Object based on its state_id"""
-    state = storage.get("State", state_id)
-    if state is None:
-        abort(404)
-    state.delete()
-    storage.save()
-    return (jsonify({}))
+    state = storage.get(State, state_id)
 
+    if not state:
+        abort(404)
+
+    storage.delete(state)
+    storage.save()
+
+    return make_response(jsonify({}), 200)
 
 @app_views.route('/states/', methods=['POST'], strict_slashes=False)
 def post_state():
@@ -54,13 +58,19 @@ def post_state():
                  strict_slashes=False)
 def put_state(state_id):
     """update a state"""
-    state = storage.get("State", state_id)
-    if state is None:
+    state = storage.get(State, state_id)
+
+    if not state:
         abort(404)
+
     if not request.get_json():
-        return make_response(jsonify({'error': 'Not a JSON'}), 400)
-    for attr, val in request.get_json().items():
-        if attr not in ['id', 'created_at', 'updated_at']:
-            setattr(state, attr, val)
-    state.save()
-    return jsonify(state.to_dict())
+        abort(400, description="Not a JSON")
+
+    ignore = ['id', 'created_at', 'updated_at']
+
+    data = request.get_json()
+    for key, value in data.items():
+        if key not in ignore:
+            setattr(state, key, value)
+    storage.save()
+    return make_response(jsonify(state.to_dict()), 200)
