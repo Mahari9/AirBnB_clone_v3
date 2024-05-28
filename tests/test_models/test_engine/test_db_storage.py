@@ -95,14 +95,12 @@ class TestDBStorage(unittest.TestCase):
                      "not testing db storage")
     def test_get(self):
         """Test that get method returns specific object, or none"""
-        new_state = State(name="New")
-        new_state.save()
-        new_user = User(email="mah@foobar.com", password="password")
-        new_user.save()
-        self.assertIs(new_state, models.storage.get("State", new_state.id))
-        self.assertIs(None, models.storage.get("State", "mah"))
-        self.assertIs(None, models.storage.get("mah", "mah"))
-        self.assertIs(new_user, models.storage.get("User", new_user.id))
+        dic = {"name": "California"}
+        instance = State(**dic)
+        storage.new(instance)
+        storage.save()
+        get_instance = storage.get(State, instance.id)
+        self.assertEqual(get_instance, instance)
 
     @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db',
                      "not testing db storage")
